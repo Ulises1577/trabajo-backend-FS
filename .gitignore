@@ -1,0 +1,20 @@
+node_modules/
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+
+# Claves docentes / secretos
+CLAVE_ERRORES_DOCENTE.txt
+CLAVE_*.txt
