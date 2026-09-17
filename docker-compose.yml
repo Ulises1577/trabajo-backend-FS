@@ -1,0 +1,41 @@
+services:
+  # Base de Datos MongoDB
+  mongo:
+    image: mongo:latest
+    container_name: mongo_gestion_turnos
+    restart: unless-stopped
+    ports:
+      - "27017:27017" # Permite conexiones desde el host (127.0.0.1) o herramientas como MongoDB Compass
+    environment:
+      MONGO_INITDB_DATABASE: gestion_turnos
+    volumes:
+      - mongo_data_turnos:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # Backend Express
+  app:
+    build: .
+    container_name: app_gestion_turnos
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo:27017/gestion_turnos
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+      # Volumen anónimo para preservar node_modules de Linux dentro del contenedor,
+      # evitando colisiones con node_modules del host (especialmente Windows)
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  mongo_data_turnos:
