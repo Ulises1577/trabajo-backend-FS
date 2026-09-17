@@ -1,0 +1,64 @@
+### Healthcheck / Raíz
+GET http://localhost:3000/
+
+### Listar Pacientes
+GET http://localhost:3000/api/pacientes
+
+### Crear Paciente
+# @name crearPaciente
+POST http://localhost:3000/api/pacientes
+Content-Type: application/json
+
+{
+  "nombre": "María Pérez",
+  "email": "maria@example.com",
+  "telefono": "123456789"
+}
+
+### Obtener Paciente por ID (reemplazar con un ID existente o usar variable)
+@pacienteId = 6aac711f302710f3a0298cf1
+GET http://localhost:3000/api/pacientes/{{pacienteId}}
+
+### Actualizar Paciente
+PUT http://localhost:3000/api/pacientes/{{pacienteId}}
+Content-Type: application/json
+
+{
+  "nombre": "María Pérez Modificada",
+  "email": "maria.modificada@example.com",
+  "telefono": "987654321"
+}
+
+### Eliminar Paciente
+DELETE http://localhost:3000/api/pacientes/{{pacienteId}}
+
+### Listar Turnos
+GET http://localhost:3000/api/turnos
+
+### Crear Turno
+POST http://localhost:3000/api/turnos
+Content-Type: application/json
+
+{
+  "pacienteId": "{{pacienteId}}",
+  "fecha": "2026-10-10",
+  "hora": "10:30",
+  "motivo": "Consulta general",
+  "estado": "pendiente"
+}
+
+### Obtener Turno por ID
+@turnoId = 6aac711f302710f3a0298cfb
+GET http://localhost:3000/api/turnos/{{turnoId}}
+
+### Actualizar Turno
+PUT http://localhost:3000/api/turnos/{{turnoId}}
+Content-Type: application/json
+
+{
+  "motivo": "Consulta de urgencia reprogramada",
+  "estado": "confirmado"
+}
+
+### Eliminar Turno
+DELETE http://localhost:3000/api/turnos/{{turnoId}}
