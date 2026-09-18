@@ -14,6 +14,17 @@ const turnoSchema = new mongoose.Schema({
     enum: ["pendiente", "confirmado", "cancelado"],
     default: "pendiente"
   }
-}, { timestamps: true });
+}, {
+  timestamps: true,
+  toJSON: {
+    transform: (_doc, ret) => {
+      delete ret._id;
+      delete ret.__v;
+      delete ret.createdAt;
+      delete ret.updatedAt;
+      return ret;
+    }
+  }
+});
 
 module.exports = mongoose.model("Turno", turnoSchema);
